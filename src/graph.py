@@ -3,21 +3,65 @@
 # V = {v1, v2, ... vn}
 # E = {(u, v, w): u, v ∈ V, w ∈ C}
 
+# Define edge structure
+class edge:
+
+    # Initialize new edge
+    def __init__(self, source, target, weight) -> None:
+        self.source = source
+        self.target = target
+        self.weight = weight
+
+    # Validate source, target and weight
+    @property
+    def source (self) -> int:
+        return self._source
+
+    @source.setter
+    def source (self, val) -> None:
+        if (type(val) != int):
+            raise TypeError("Wrong value of edge's source, should be an int")
+
+        self._source = val
+
+    @property
+    def target (self) -> int:
+        return self._target
+
+    @target.setter
+    def target (self, val) -> None:
+        if (type(val) != int):
+            raise TypeError("Wrong value of edge's target, should be an int")
+
+        self._target = val
+
+    @property
+    def weight (self) -> int:
+        return self._weight
+
+    @weight.setter
+    def weight (self, val) -> None:
+        if (type(val) != int):
+            raise TypeError("Wrong value of edge's weight, only ints are supported")
+
+        self._weight = val
+
+
 # Define graph structure
 class graph:
 
     # Initialize new graph
     def __init__ (self, vertices, edges) -> None:
         self.vertices = vertices
-        self.edges = edges
+        self.edges = [edge(e[0], e[1], e[2]) for e in edges]
 
     # Validate vertices
     @property
-    def vertices (self):
+    def vertices (self) -> list:
         return self._vertices
 
     @vertices.setter
-    def vertices (self, val) -> list:
+    def vertices (self, val) -> None:
         if (type(val) != list):
             raise TypeError("Inappropriate type of vertices, should be an array")
 
@@ -28,27 +72,13 @@ class graph:
 
     # Validate edges
     @property
-    def edges (self):
+    def edges (self) -> list:
         return self._edges
 
     @edges.setter
-    def edges (self, val) -> list:
+    def edges (self, val) -> None:
         if (type(val) != list):
             raise TypeError("Inappropriate type of edges, should be an array")
-
-        if (len(val) > 0):
-            for i, v in enumerate(val):
-                if (type(v) != list):
-                    raise TypeError("Inappropriate type of edge, should be an array")
-
-                if (len(v) != 3):
-                    raise TypeError(f"Wrong lenght of {i}-edge, should be equal 3 and contain: start node, end node, weight")
-
-                if (type(v[0]) != int or type(v[1]) != int):
-                    raise TypeError(f"Wrong value of {i}-edge's node index, should be an int")
-
-                if (type(v[2]) != int):
-                    raise TypeError(f"Wrong value of {i}-edge's weight, only ints are supported")
 
         self._edges = val
 
@@ -63,3 +93,15 @@ class graph:
     # Calculate node degree
     def get_vertex_degree(self, node_index) -> int:
         pass
+
+    # Generate adjency list
+    def get_adjacency_list(self) -> list:
+        adjacency_list = [[] for _ in range(self.get_graph_order())]
+        for edge in self.edges:
+            adjacency_list[edge.source].append(edge.target)
+
+            if (edge.source != edge.target):
+                adjacency_list[edge.target].append(edge.source)
+        
+        return adjacency_list
+
