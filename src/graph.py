@@ -4,7 +4,7 @@
 # E = {(u, v, w): u, v ∈ V, w ∈ C}
 
 # Define edge structure
-class edge:
+class Edge:
 
     # Initialize new edge
     def __init__(self, source, target, weight) -> None:
@@ -46,14 +46,17 @@ class edge:
 
         self._weight = val
 
+    def __str__ (self):
+        return f'{self.source} <-{self.weight}-> {self.target}'
+
 
 # Define graph structure
-class graph:
+class Graph:
 
     # Initialize new graph
     def __init__ (self, vertices, edges) -> None:
         self.vertices = vertices
-        self.edges = [edge(e[0], e[1], e[2]) for e in edges]
+        self.edges = [Edge(e[0], e[1], e[2]) for e in edges]
 
     # Validate vertices
     @property
@@ -82,11 +85,11 @@ class graph:
 
         self._edges = val
 
-    # Calculate graph order
+    # Calculate graph order (number of vertices)
     def get_graph_order (self) -> int:
         return len(self.vertices)
 
-    # Calculate graph size
+    # Calculate graph size (number of edges)
     def get_graph_size (self) -> int:
         return len(self.edges)
 
@@ -95,7 +98,7 @@ class graph:
         pass
 
     # Generate adjency list
-    def get_adjacency_list(self) -> list:
+    def get_adjacency_list (self) -> list:
         adjacency_list = [[] for _ in range(self.get_graph_order())]
         for edge in self.edges:
             adjacency_list[edge.source].append(edge.target)
@@ -104,4 +107,8 @@ class graph:
                 adjacency_list[edge.target].append(edge.source)
         
         return adjacency_list
+
+    def sort_edges (self) -> list:
+        self.edges.sort(key=lambda e: e.weight)
+        return self.edges
 
