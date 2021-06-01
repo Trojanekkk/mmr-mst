@@ -97,14 +97,16 @@ class Graph:
     def get_vertex_degree(self, node_index) -> int:
         pass
 
-    # Generate adjency list
+    # Generate adjency list v1 : [v2, v2_weight, v3, v3_weight ... vn, vn_weight], v2: ...
     def get_adjacency_list (self) -> list:
         adjacency_list = [[] for _ in range(self.get_graph_order())]
         for edge in self.edges:
             adjacency_list[edge.source].append(edge.target)
+            adjacency_list[edge.source].append(edge.weight)
 
             if (edge.source != edge.target):
                 adjacency_list[edge.target].append(edge.source)
+                adjacency_list[edge.target].append(edge.weight)
         
         return adjacency_list
 
