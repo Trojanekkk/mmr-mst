@@ -15,14 +15,13 @@ class Generator():
                 tmp_vertices = vertices.copy()
                 tmp_vertices.pop(v)
                 edges.append([v, choice(tmp_vertices), 0])
-                self.edges_weights.append(randint(1,10))
+                self.edges_weights.append(randint(1,100))
         self.graph = Graph(vertices, edges)
 
         self.n_scenarios = len(self.edges_weights)
 
     def generate_scenario (self) -> list:
         self.edges_weights.append(self.edges_weights.pop(0))
-        print(self.edges_weights)
 
         for i, e in enumerate(self.graph.edges):
             e.weight = self.edges_weights[i]

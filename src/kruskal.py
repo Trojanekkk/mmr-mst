@@ -11,7 +11,6 @@ class Kruskal:
         sorted_edges = graph.sort_edges()
         for edge in sorted_edges:
             if (len(mst_nodes) == graph.get_graph_order()):
-                print(graph.get_graph_order())
                 break
 
             if (edge.source == edge.target):

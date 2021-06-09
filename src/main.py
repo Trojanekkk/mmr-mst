@@ -1,26 +1,47 @@
 from graph import Graph
 from generator import Generator
+from spanning_tree import Spanning_tree
 from kruskal import Kruskal
 from prim import Prim
 from boruvka import Boruvka
 
 if __name__ == '__main__':
-    # Generate random graphs
-    gen = Generator(10, 2)
 
-    graphs = []
-    graphs.append(gen.generate_scenario())
-    graphs.append(gen.generate_scenario())
+    # Generate graph
+    gen = Generator(4, 2)
 
-    for g in graphs:
-        print(g.get_adjacency_list())
+    # Generate scenarios
+    scenarios = []
+    for scenario in gen.edges_weights:
+        scenarios.append(gen.generate_scenario())
+
+    results = []
+    for i, s in enumerate(scenarios):
+        # print(s.get_adjacency_list())
+
+        st = []
+        model = Spanning_tree(s)
+        for tree in model.edges:
+            model.generate_conditions()
+            st_value = model.exec()
+            st.append(st_value)
 
         model = Kruskal()
-        kruskal_value = model.exec(g)
-        print(kruskal_value)
+        kruskal_value = model.exec(s)
         
-        model = Prim()
-        prim_value = model.exec(g, 0)
-        print(prim_value)
+        prim_values = []
+        for v in s.vertices:
+            model = Prim()
+            prim_values.append(model.exec(s, v))
+            prim_value = sorted(prim_values)[0]
+
+
+        results.append({
+            'st': st,
+            'mst_kruskal': kruskal_value,
+            'mst_prim': prim_value
+        })
+
+    print(results)
 
     # boruvka_mst = Boruvka.exec(graph1)
