@@ -49,7 +49,6 @@ class Edge:
     def __str__ (self):
         return f'{self.source} <-{self.weight}-> {self.target}'
 
-
 # Define graph structure
 class Graph:
 
@@ -115,3 +114,23 @@ class Graph:
         self.edges.sort(key=lambda e: e.weight)
         return self.edges
 
+    def union_vertices (self, vertices_to_union) -> list:
+        for i, e in enumerate(self.edges):
+            if (e.target in vertices_to_union and e.source in vertices_to_union):
+                self.edges.pop(i)
+                continue
+
+            if (e.source in vertices_to_union):
+                print(e, "into")
+                e.source = vertices_to_union[0]
+                print(e)
+            if (e.target in vertices_to_union):
+                print(e, "into")
+                e.target = vertices_to_union[0]
+                print(e)
+
+        for i, v in enumerate(vertices_to_union):
+            if (i == 0):
+                continue
+
+            self.vertices.pop(v)
