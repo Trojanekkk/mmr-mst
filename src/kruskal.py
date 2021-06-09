@@ -1,7 +1,10 @@
 class Kruskal:
 
+    def __init__ (self) -> None:
+        self.mst = []
+
     # Execute Kruskal algorithm on provided graph
-    def exec (graph) -> list:
+    def exec (self, graph) -> list:
         mst = []
         mst_nodes = []
         mst_sets = []
@@ -48,5 +51,6 @@ class Kruskal:
             if (len(mst) == graph.get_graph_order() - 1):
                 break
 
-        print(mst_nodes)
-        return mst
+        self.mst = mst
+
+        return sum(e.weight for e in mst)

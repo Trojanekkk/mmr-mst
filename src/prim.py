@@ -1,7 +1,10 @@
 class Prim:
 
+    def __init__ (self) -> None:
+        self.mst = []
+
     # Execute Prim's algorithm on provided graph starting from predefined root
-    def exec (graph, root) -> list:
+    def exec (self, graph, root) -> list:
         mst = []
         current_node = root
         mst_nodes = [current_node]
@@ -21,5 +24,7 @@ class Prim:
             current_node = cheapest_edge.target
 
             mst_nodes.append(current_node)
+
+            self.mst = mst
              
-        return mst
+        return sum(e.weight for e in mst)
