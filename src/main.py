@@ -12,7 +12,7 @@ if __name__ == '__main__':
     results = []
     for i, s in enumerate(range(gen.n_scenarios)):
         s = gen.generate_scenario()
-        print(s.get_adjacency_list())
+        # print(s.get_adjacency_list())
 
         st = []
         model = Spanning_tree(s)
@@ -32,8 +32,28 @@ if __name__ == '__main__':
 
         results.append({
             'st': st,
+            'avg': sum(st)/len(st),
             'mst_kruskal': kruskal_value,
             # 'mst_prim': prim_value
         })
 
-    print(results)
+
+    # Print found in graph STs and MST values for every scenario
+    print('Matrix of scenarios and spanning tree costs:\n', results, '\n')
+
+    # Calculate Regrets
+    regrets = []
+    for s in results:
+        regret = {'st': []}
+        mst = s['mst_kruskal']
+        for st in s['st']:
+            regret['st'].append(st - mst)
+        regrets.append(regret)
+    print('Matrix of regrets:\n', regrets, '\n')
+
+    # Calculate Max regrets vector
+    max_regret_st = []
+    for s in regrets:
+        max_regret_st.append(min(s['st']))
+
+    print('Vector of Maximum regrets for every scenario:\n', max_regret_st)
