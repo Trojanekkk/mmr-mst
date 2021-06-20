@@ -1,8 +1,10 @@
 from random import choice, randint
 from graph import Graph
 
+# Define scenarios generator
 class Generator():
 
+    # Initialize generator, create graph, assign init weights (init scenario)
     def __init__ (self, order, max_edges_per_vertex):
         self.graph = None
         self.n_scenarios = 0
@@ -20,6 +22,7 @@ class Generator():
 
         self.n_scenarios = len(self.edges_weights)
 
+    # Generate another one scenario
     def generate_scenario (self) -> list:
         self.edges_weights.append(self.edges_weights.pop(0))
 

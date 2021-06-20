@@ -7,7 +7,7 @@ from prim import Prim
 if __name__ == '__main__':
 
     # Generate graph
-    gen = Generator(5, 2)
+    gen = Generator(12, 2)
 
     results = []
     for i, s in enumerate(range(gen.n_scenarios)):

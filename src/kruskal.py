@@ -1,5 +1,7 @@
+# Define Kruskal algorithm
 class Kruskal:
 
+    # Initialize model
     def __init__ (self) -> None:
         self.mst = []
 
@@ -9,10 +11,13 @@ class Kruskal:
         mst_nodes = []
         mst_sets = []
         sorted_edges = graph.sort_edges()
+
         for edge in sorted_edges:
+            # Check if MST is already build
             if (len(mst_nodes) == graph.get_graph_order()):
                 break
 
+            # Check if edge's source is the same as target - loop
             if (edge.source == edge.target):
                 continue
 

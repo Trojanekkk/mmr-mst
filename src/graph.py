@@ -1,8 +1,3 @@
-# Graph symbolic structure 
-# G = {V, E}
-# V = {v1, v2, ... vn}
-# E = {(u, v, w): u, v ∈ V, w ∈ C}
-
 # Define edge structure
 class Edge:
 
@@ -92,14 +87,10 @@ class Graph:
     def get_graph_size (self) -> int:
         return len(self.edges)
 
-    # Calculate node degree
-    def get_vertex_degree(self, node_index) -> int:
-        pass
-
     # Generate adjency list v1 : [v2, v2_weight, v3, v3_weight ... vn, vn_weight], v2: ...
     def get_adjacency_list (self) -> list:
         adjacency_list = [[] for _ in range(self.get_graph_order())]
-        cost_list = [[] for _ in range(self.get_graph_order())]
+        cost_list = [[] for _ in range(self.get_graph_order())]S
         for edge in self.edges:
             adjacency_list[edge.source].append(edge.target)
             cost_list[edge.source].append(edge.weight)
@@ -113,24 +104,3 @@ class Graph:
     def sort_edges (self) -> list:
         self.edges.sort(key=lambda e: e.weight)
         return self.edges
-
-    def union_vertices (self, vertices_to_union) -> list:
-        for i, e in enumerate(self.edges):
-            if (e.target in vertices_to_union and e.source in vertices_to_union):
-                self.edges.pop(i)
-                continue
-
-            if (e.source in vertices_to_union):
-                print(e, "into")
-                e.source = vertices_to_union[0]
-                print(e)
-            if (e.target in vertices_to_union):
-                print(e, "into")
-                e.target = vertices_to_union[0]
-                print(e)
-
-        for i, v in enumerate(vertices_to_union):
-            if (i == 0):
-                continue
-
-            self.vertices.pop(v)
